@@ -1,4 +1,4 @@
-const code = /* language=WGSL */ `
+const vertexShader = /* language=WGSL */ `
   struct VSOutput {
     @builtin(position) position: vec4<f32>,
     @location(0) color: vec4<f32>
@@ -17,15 +17,16 @@ const code = /* language=WGSL */ `
   );
 
   @stage(vertex)
-  fn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VSOutput {
+  fn main(@builtin(vertex_index) vertexIndex: u32) -> VSOutput {
     return VSOutput(
       vec4(positions[vertexIndex], 0.0, 1.0),
       vec4(colors[vertexIndex], 1.0)
     );
-  }
+  }`
 
+const fragmentShader = /* language=WGSL */ `
   @stage(fragment)
-  fn fs_main(@location(0) color: vec4<f32>) -> @location(0) vec4<f32> {
+  fn main(@location(0) color: vec4<f32>) -> @location(0) vec4<f32> {
     return color;
   }`
 
@@ -37,12 +38,12 @@ const render = async (gpu, canvasContext) => {
   const pipeline = device.createRenderPipeline({
     layout: 'auto',
     vertex: {
-      module: device.createShaderModule({ code }),
-      entryPoint: 'vs_main',
+      module: device.createShaderModule({ code: vertexShader }),
+      entryPoint: 'main',
     },
     fragment: {
-      module: device.createShaderModule({ code }),
-      entryPoint: 'fs_main',
+      module: device.createShaderModule({ code: fragmentShader }),
+      entryPoint: 'main',
       targets: [{ format }],
     },
     primitive: { topology: 'triangle-list' },
