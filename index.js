@@ -5,22 +5,22 @@ const code = /* language=WGSL */ `
   };
 
   let positions = array<vec2<f32>,3>(
-    vec2<f32>( 0.0,  0.5), 
-    vec2<f32>(-0.5, -0.5), 
-    vec2<f32>( 0.5, -0.5)
+    vec2( 0.0,  0.5), 
+    vec2(-0.5, -0.5), 
+    vec2( 0.5, -0.5)
   );
 
   let colors = array<vec3<f32>,3>(
-    vec3<f32>(0.0, 1.0, 1.0), 
-    vec3<f32>(0.0, 0.0, 1.0), 
-    vec3<f32>(1.0, 0.0, 1.0)
+    vec3(0.0, 1.0, 1.0), 
+    vec3(0.0, 0.0, 1.0), 
+    vec3(1.0, 0.0, 1.0)
   );
 
   @stage(vertex)
   fn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VSOutput {
     return VSOutput(
-      vec4<f32>(positions[vertexIndex], 0.0, 1.0),
-      vec4<f32>(colors[vertexIndex], 1.0)
+      vec4(positions[vertexIndex], 0.0, 1.0),
+      vec4(colors[vertexIndex], 1.0)
     );
   }
 
