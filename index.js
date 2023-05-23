@@ -4,19 +4,19 @@ const vertexShader = /* language=WGSL */ `
     @location(0) color: vec4<f32>
   };
 
-  let positions = array<vec2<f32>,3>(
+  const positions = array<vec2<f32>,3>(
     vec2( 0.0,  0.5), 
     vec2(-0.5, -0.5), 
     vec2( 0.5, -0.5)
   );
 
-  let colors = array<vec3<f32>,3>(
+  const colors = array<vec3<f32>,3>(
     vec3(0.0, 1.0, 1.0), 
     vec3(0.0, 0.0, 1.0), 
     vec3(1.0, 0.0, 1.0)
   );
 
-  @stage(vertex)
+  @vertex
   fn main(@builtin(vertex_index) vertexIndex: u32) -> VSOutput {
     return VSOutput(
       vec4(positions[vertexIndex], 0.0, 1.0),
@@ -25,7 +25,7 @@ const vertexShader = /* language=WGSL */ `
   }`
 
 const fragmentShader = /* language=WGSL */ `
-  @stage(fragment)
+  @fragment
   fn main(@location(0) color: vec4<f32>) -> @location(0) vec4<f32> {
     return color;
   }`
